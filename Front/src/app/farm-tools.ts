@@ -5,7 +5,8 @@ import { Territory } from './territory';
 
 @Component({
   selector: 'farm-tools', standalone: true, imports: [FormsModule, TranslatePipe],
-  templateUrl: './farm-tools.html', styleUrls: ['./farm-tools.css', './farm-mobile.css']
+  templateUrl: './farm-tools.html', styleUrls: ['./farm-tools.css', './farm-mobile.css'],
+  styles: ['.fields input{width:100%;box-sizing:border-box;min-height:44px;border:1px solid #d8e1d5;border-radius:9px;background:#f4f8ed;padding:11px;color:#324f39;font:inherit}@media(max-width:650px){.fields input{font-size:16px;min-height:48px}}']
 })
 export class FarmTools implements OnDestroy {
   @Input() compact = false;
@@ -14,7 +15,8 @@ export class FarmTools implements OnDestroy {
   readonly lang = this.language.lang;
   tab = signal('diagnosis');
   readonly region = this.area.region;
-  crop = 'Tomate';
+  get crop(){return this.area.plots.find(p=>p.name===this.plot)?.crop || '';}
+  get commune(){return this.area.plots.find(p=>p.name===this.plot)?.commune || '';}
   private chosenPlot = '';
   get plot(){return this.area.visiblePlots().find(p=>p.name===this.chosenPlot)?.name || this.area.visiblePlots()[0]?.name || '';}
   set plot(value:string){this.chosenPlot=value;}
@@ -27,7 +29,7 @@ export class FarmTools implements OnDestroy {
   saved = signal(false);
   storageError = signal('');
   selectedGuide = signal('');
-  history = signal<{date:string;crop:string;plot:string;title:string;district?:string}[]>([]);
+  history = signal<{date:string;crop:string;plot:string;title:string;district?:string;commune?:string}[]>([]);
   tasks = signal([{title:'Photographier la parcelle sélectionnée',when:'Aujourd’hui',done:false},{title:'Noter l’évolution des symptômes',when:'Dans 2 jours',done:false},{title:'Préparer les questions pour le technicien',when:'Avant la prochaine visite',done:false}]);
   timer?: ReturnType<typeof setTimeout>;
   scenarios: Record<string,{title:string;alternatives:string[]}> = {
@@ -59,7 +61,7 @@ export class FarmTools implements OnDestroy {
   }
   save(){
     if(this.saved())return;
-    const items=[{date:new Date().toLocaleDateString('fr-FR'),crop:this.crop,plot:this.plot,district:this.area.plots.find(p=>p.name===this.plot)?.district,title:this.result().title},...this.history()];
+    const items=[{date:new Date().toLocaleDateString('fr-FR'),crop:this.crop,plot:this.plot,district:this.area.plots.find(p=>p.name===this.plot)?.district,commune:this.commune,title:this.result().title},...this.history()];
     this.history.set(items);this.saved.set(true);
     try{localStorage.setItem('agriveille-demo-history',JSON.stringify(items))}catch{this.storageError.set('Dossier conservé pour cette session uniquement : stockage local indisponible.')}
   }

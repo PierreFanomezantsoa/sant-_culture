@@ -1,6 +1,22 @@
 import { Injectable, Pipe, PipeTransform, inject, signal, effect } from '@angular/core';
 
 const MALAGASY: Record<string, string> = {
+  "Riz": "Vary",
+  "Haricot": "Tsaramaso",
+  "Orange": "Voasary",
+  "Orge": "Orza (orge)",
+  "Maïs": "Katsaka",
+  "Arachide": "Voanjo",
+  "Fruits variés": "Karazana voankazo",
+  "Tomate : commune d’Andina": "Voatabia: kaominina Andina",
+  "Espèces fruitières à préciser": "Mbola hofaritana ireo karazana voankazo",
+  "Communes à préciser": "Mbola hofaritana ny kaominina",
+  "Commune non renseignée": "Kaominina tsy voafaritra",
+  "Cultures signalées par district": "Voly voalaza isaky ny distrika",
+  "Informations agricoles fournies par l’utilisateur, à confirmer localement. Liste non exhaustive ; aucune statistique de production.": "Fanazavana momba ny fambolena nomen’ny mpampiasa, mbola hohamarinina eny an-toerana. Tsy lisitra feno ary tsy antontan’isa momba ny vokatra.",
+  "Suivi de plusieurs cultures": "Fanaraha-maso karazana voly maro",
+  "Photo de vos cultures, observations et carnet de suivi au même endroit.": "Sarin’ny volinao, fandinihana ary kahie fanaraha-maso ao amin’ny toerana iray.",
+  "Gérez et suivez la santé de vos cultures.": "Tantano sy araho ny fahasalaman’ny volinao.",
   "Photographier la parcelle sélectionnée": "Alaivo sary ny saha voafidy",
   "Exemples fictifs": "Ohatra santionany",
   "Météo non connectée": "Tsy mifandray ny toetrandro",

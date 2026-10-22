@@ -1,1 +1,49 @@
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#f6f7f2}body{-webkit-font-smoothing:antialiased}button{cursor:pointer}
+
+/* Shared palette for the shell and routed pages. */
+:root {
+  color-scheme: light;
+  --dark: #123d32;
+  --green: #176448;
+  --cream: #f3f6f2;
+  --line: #d5dfd7;
+  --muted: #52665a;
+}
+html app-root {
+  --cream: #f3f6f2;
+  --line: #d5dfd7;
+  --muted: #52665a;
+}
+app-root .shell { background: var(--cream); color: #203c2d; }
+app-root .shell > aside { background: var(--dark); color: #fff; }
+app-root .shell > main > header { background: #fff; color: #203c2d; }
+app-root .primary { background: var(--green); color: #fff; }
+app-root .primary:hover, app-root .action:hover { background: #104d36; }
+app-root input, app-root select, app-root textarea { color: #203c2d; }
+app-root input::placeholder, app-root textarea::placeholder { color: #607166; opacity: 1; }
+app-root .search, app-root .search input { background: #fff; }
+app-root .heading small, app-root .labels { color: #52665a; }
+app-root .stats em { color: #286b49; }
+app-root .farm-entry small, app-root .farm-entry p { color: #49613e; }
+app-root .status { background: #e3f2e8; color: #205e3c; }
+app-root .status.waiting { background: #fff0d4; color: #80500d; }
+app-root .status.progress { background: #e5eef9; color: #265b86; }
+app-root .brand small, app-root .profile small,
+app-root .season small { color: #c3d7cc; }
+app-root .territory-heading small, app-root .territory-heading p,
+app-root .districts small, app-root .districts button > span,
+app-root .crop-profiles > p, app-root .profile-grid small { color: #53684a; }
+app-root .section-title p, app-root .fine, app-root .photo-tip,
+app-root .upload-box small, app-root .result-empty p,
+app-root .result-empty > small, app-root .result > p,
+app-root .possibilities span, app-root .task small,
+app-root .history small, app-root .resource > small,
+app-root .resource p, app-root .local-note p { color: #53664e; }
+app-root .tip p { color: #d4e5dc; }
+app-root .tip button { color: #ffcf70; }
+app-root button:disabled { cursor: not-allowed; }
+app-root :is(button, input, select, textarea, summary, a):focus-visible {
+  outline: 3px solid #af7416;
+  outline-offset: 3px;
+}
+app-root aside button:focus-visible { outline-color: #ffd580; }

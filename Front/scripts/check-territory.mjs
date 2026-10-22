@@ -24,6 +24,9 @@ for (const district of area.districts) {
   const report = area.visibleReports()[0];
   assert.equal(report.plot, area.visiblePlots()[0].name);
   assert.equal(report.district, district);
+  assert.equal(report.crop, area.visiblePlots()[0].crop);
+  assert.equal(report.commune, area.visiblePlots()[0].commune);
+  assert.ok(area.profiles.find(p=>p.district===district).crops.includes(report.crop));
 }
 area.select('');
 assert.equal(area.visibleReports().filter(r => r.status === 'En attente').length, 2);
@@ -38,3 +41,8 @@ assert.equal(area.visibleReports().length, 1);
 area.select('Ambositra');
 assert.equal(area.visibleReports().length, 2);
 console.log('OK : quatre districts, liens parcelles/dossiers, compteurs et filtres cohérents.');
+assert.equal(area.plots.find(p=>p.crop==='Tomate').commune,'Andina');
+assert.deepEqual(area.profiles.find(p=>p.district==='Ambositra').crops,['Riz','Haricot','Orange','Tomate']);
+assert.deepEqual(area.profiles.find(p=>p.district==='Manandriana').crops,['Orge','Maïs','Arachide','Riz']);
+assert.deepEqual(area.profiles.find(p=>p.district==='Fandriana').crops,['Riz','Fruits variés']);
+console.log('OK : cultures par district et tomate d’Andina liées aux parcelles et aux dossiers.');

@@ -3,5 +3,6 @@
   "framework": "angular",
   "installCommand": "npx --yes pnpm@10.18.3 install --frozen-lockfile --prod=false",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/agri-veille/browser"
+  "outputDirectory": "dist/agri-veille/browser",
+  "rewrites": [{"source":"/(.*)","destination":"/index.html"}]
 }

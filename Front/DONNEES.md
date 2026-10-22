@@ -20,7 +20,18 @@ Ces sources justifient uniquement les noms et l’appartenance des districts. El
 | Ambatofinandrahana | C | 0,40 ha | DEMO-003 | Résolu |
 | Manandriana | D | 0,20 ha | DEMO-004 | En attente |
 
-Les quatre parcelles illustrent la culture pilote tomate. Aucune affirmation de représentativité, de rendement, de production ou de prévalence des maladies n’est faite. Les symptômes ne constituent pas des diagnostics. Le statut « bonne santé » de la parcelle C est fictif, la parcelle D n’est pas évaluée. Les deux autres sont à surveiller.
+Les quatre parcelles illustrent respectivement la tomate à Andina (Ambositra), le riz à Fandriana, le maïs à Ambatofinandrahana et l’orge à Manandriana. Ces parcelles et leurs superficies sont fictives. Les autres communes ne sont pas renseignées. Aucune affirmation de représentativité, de rendement, de production ou de prévalence des maladies n’est faite. Les symptômes ne constituent pas des diagnostics. Le statut « bonne santé » de la parcelle C est fictif, la parcelle D n’est pas évaluée. Les deux autres sont à surveiller.
+
+## Informations agricoles fournies par l’utilisateur
+
+- Ambositra : riz, haricot, orange ; tomate dans la commune d’Andina.
+- Ambatofinandrahana : orge, maïs, arachide, riz.
+- Manandriana : mêmes cultures signalées qu’à Ambatofinandrahana. Le nom officiel existant Manandriana a été conservé pour la mention « Manandrina » de l’utilisateur.
+- Fandriana : riz et fruits variés, sans inventer d’espèces fruitières précises.
+
+Ces indications viennent du contexte local décrit par l’utilisateur dans la conversation. Elles ne sont pas validées par les sources administratives citées plus haut. La liste est non exhaustive, sans classement de production, et doit être confirmée localement avant diffusion comme référentiel officiel. Le catalogue des cultures ne prétend pas qu’une parcelle de démonstration existe pour chacune.
+
+La culture de chaque déclaration et simulation est déterminée par la parcelle choisie, pour éviter d’enregistrer une observation tomate sur une parcelle de riz. Les fiches spécifiques aux tomates restent identifiées comme telles. Les scénarios d’analyse sont génériques et fictifs ; aucun modèle par culture n’a été ajouté.
 
 Les indicateurs sont calculés à partir du même jeu de données : initialement 4 parcelles, 2 à surveiller, 2 dossiers en attente et 1 résolu. Le filtre de district s’applique aux compteurs, parcelles, signalements et dossiers de simulation. Le total n’est pas une statistique régionale réelle.
 

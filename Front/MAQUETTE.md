@@ -19,7 +19,7 @@ Dans le menu, choisir **Assistant au champ** ou utiliser le bouton du tableau de
 - Aucun score de confiance ni diagnostic réel n’est produit.
 - Aucun fichier ni dossier n’est transmis. La photo est affichée via une URL locale temporaire, libérée à la fermeture du composant.
 - Seuls les résumés des dossiers sont enregistrés dans localStorage sur cet appareil. Les photos et les cases du planning ne sont pas conservées après rechargement.
-- La tomate reste la seule culture du prototype. Les régions servent à illustrer le contexte, sans modifier les résultats.
+- Les cultures sont présentées par district selon les informations fournies par l’utilisateur : riz, haricot, orange, tomate à Andina, orge, maïs, arachide et fruits non précisés. Les exemples de parcelles ne couvrent qu’une partie de ce catalogue. Voir DONNEES.md. Aucun algorithme spécifique à une culture n’est exécuté.
 - Le tableau de bord régional utilise un jeu fictif cohérent dans les quatre districts d’Amoron’i Mania. Les compteurs sont calculés selon le district choisi. Aucune température ni humidité mesurée n’est affichée. Voir DONNEES.md pour les sources et les limites.
 - Les textes de l’interface sont disponibles en français et en malagasy. Les noms propres, les fichiers et les descriptions libres ne font pas l’objet d’une traduction automatique. Une relecture locale des traductions est recommandée avant diffusion.
 - Les fiches sont des contenus de démonstration, sans validation agronomique revendiquée par ce nouveau module.
