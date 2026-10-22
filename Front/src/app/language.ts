@@ -1,6 +1,21 @@
 import { Injectable, Pipe, PipeTransform, inject, signal, effect } from '@angular/core';
 
 const MALAGASY: Record<string, string> = {
+  "Photographier la parcelle sélectionnée": "Alaivo sary ny saha voafidy",
+  "Exemples fictifs": "Ohatra santionany",
+  "Météo non connectée": "Tsy mifandray ny toetrandro",
+  "Non mesurée": "Tsy norefesina",
+  "Non évaluée": "Tsy mbola nozahana",
+  "Observation à compléter": "Fandinihana mila fenoina",
+  "Parcelle A": "Saha A",
+  "Parcelle B": "Saha B",
+  "Parcelle C": "Saha C",
+  "Parcelle D": "Saha D",
+  "21 oct. 2026": "21 okt. 2026",
+  "Fiches illustratives à valider par un technicien": "Torolalana santionany mila hamarinina amin’ny teknisianina",
+  "Créer un dossier de démonstration": "Hamorona tatitra santionany",
+  "Dossier de démonstration créé, non transmis": "Voaforona ny tatitra santionany, tsy nalefa",
+  "Photographiez les symptômes et notez la date avant de consulter un technicien.": "Makà sary ny soritr’aretina ary soraty ny daty alohan’ny hiresahana amin’ny teknisianina.",
   "SANTÉ DES CULTURES": "FAHASALAMAN’NY VOLY",
   "SAISON ACTUELLE": "TAOM-PAMBOLENA ANKEHITRINY",
   "Tomate • 2026": "Voatabia • 2026",

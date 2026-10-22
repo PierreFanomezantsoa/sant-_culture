@@ -31,8 +31,8 @@ export class Notifications {
   private element=inject(ElementRef<HTMLElement>);
   open=signal(false);
   items=signal([
-    {id:1,read:false,frTitle:'Réponse du technicien',mgTitle:'Valin’ny teknisianina',fr:'Un avis est disponible pour le dossier SIG-024.',mg:'Misy torohevitra ho an’ny tatitra SIG-024.'},
-    {id:2,read:false,frTitle:'Votre suivi vous attend',mgTitle:'Miandry anao ny fanaraha-maso',fr:'Renseignez l’évolution de la Parcelle Nord.',mg:'Fenoy ny fiovan’ny Saha Avaratra.'}
+    {id:1,read:false,frTitle:'Exemple de suivi · Fandriana',mgTitle:'Ohatra fanaraha-maso · Fandriana',fr:'Le dossier fictif DEMO-002 est en cours de suivi.',mg:'Eo am-panaraha-maso ny tatitra santionany DEMO-002.'},
+    {id:2,read:false,frTitle:'Observation · Ambositra',mgTitle:'Fandinihana · Ambositra',fr:'Exemple : compléter les observations de la parcelle A.',mg:'Ohatra: fenoy ny fandinihana ny saha A.'}
   ]);
   t(fr:string,mg:string){return this.language.lang()==='fr'?fr:mg}
   unread(){return this.items().filter(i=>!i.read).length}
