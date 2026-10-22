@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="agriSanteApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#155e48">
+  <title>AgriVeille — Suivi sanitaire des cultures</title>
+  <meta name="description" content="Tableau de bord de suivi sanitaire des cultures de tomate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body ng-controller="AppController as vm" ng-cloak>
+  <div class="app-shell" ng-class="{'sidebar-open': vm.sidebarOpen}">
+    <aside class="sidebar" aria-label="Navigation principale">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><path d="M39 8C23 9 12 18 11 34c8 0 15-3 20-9-3 6-8 10-15 13 10 3 23-1 25-14 1-6-1-11-2-16Z"/><path d="M8 41c7-11 15-18 27-25"/></svg>
+        </div>
+        <div><strong>AgriVeille</strong><span>Santé des cultures</span></div>
+      </div>
+
+      <nav>
+        <button class="nav-item" ng-repeat="item in vm.navItems" ng-class="{'active': vm.activeView === item.id}" ng-click="vm.setView(item.id)">
+          <span class="nav-icon" ng-bind-html="item.icon"></span>
+          <span>{{item.label}}</span>
+          <span class="nav-badge" ng-if="item.badge">{{item.badge}}</span>
+        </button>
+      </nav>
+
+      <div class="field-card">
+        <span class="field-label">Saison actuelle</span>
+        <strong>Tomate • 2026</strong>
+        <div class="season-progress"><span></span></div>
+        <small>Jour 72 sur 110</small>
+      </div>
+
+      <div class="sidebar-user">
+        <div class="avatar">RA</div>
+        <div><strong>Rado Andria</strong><span>Agriculteur</span></div>
+        <button aria-label="Ouvrir les paramètres">•••</button>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" ng-click="vm.sidebarOpen = false"></div>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" ng-click="vm.sidebarOpen = !vm.sidebarOpen" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="mobile-brand">AgriVeille</div>
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input type="search" ng-model="vm.search" placeholder="Rechercher une parcelle, un signalement..." aria-label="Rechercher">
+          <kbd>⌘ K</kbd>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button notification-button" ng-click="vm.notificationsOpen = !vm.notificationsOpen" aria-label="Notifications">
+            <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/><path d="M10 21h4"/></svg>
+            <i></i>
+          </button>
+          <button class="primary-button" ng-click="vm.openReport()">
+            <span>＋</span> Nouveau signalement
+          </button>
+        </div>
+        <div class="notification-popover" ng-if="vm.notificationsOpen">
+          <div class="popover-head"><strong>Notifications</strong><button ng-click="vm.notificationsOpen=false">×</button></div>
+          <div class="notice"><i class="success-dot"></i><div><strong>Nouveau conseil reçu</strong><p>Le technicien a répondu au dossier SIG-024.</p><span>Il y a 12 min</span></div></div>
+          <div class="notice"><i class="warning-dot"></i><div><strong>Suivi à renseigner</strong><p>Ajoutez l'évolution de la parcelle Nord.</p><span>Aujourd'hui</span></div></div>
+        </div>
+      </header>
+
+      <section class="page" ng-if="vm.activeView === 'dashboard'">
+        <div class="page-heading">
+          <div><p class="eyebrow">JEUDI 22 OCTOBRE 2026</p><h1>Bonjour, Rado <span>👋</span></h1><p>Voici l’état sanitaire de vos cultures aujourd’hui.</p></div>
+          <div class="weather"><div class="sun">☀</div><div><strong>26°C</strong><span>Antananarivo • Ensoleillé</span></div></div>
+        </div>
+
+        <div class="stat-grid">
+          <article class="stat-card" ng-repeat="stat in vm.stats">
+            <div class="stat-icon {{stat.tone}}" ng-bind-html="stat.icon"></div>
+            <div class="stat-copy"><span>{{stat.label}}</span><strong>{{stat.value}}</strong><small class="{{stat.trendTone}}">{{stat.trend}}</small></div>
+            <button aria-label="Voir le détail" ng-click="vm.setView(stat.target)">↗</button>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel health-panel">
+            <div class="panel-heading"><div><h2>État sanitaire des parcelles</h2><p>Vue d’ensemble de votre exploitation</p></div><button class="text-button" ng-click="vm.setView('plots')">Voir toutes <span>→</span></button></div>
+            <div class="health-content">
+              <div class="donut-wrap">
+                <div class="donut" style="--healthy: 70; --watch: 20;"><div><strong>10</strong><span>parcelles</span></div></div>
+                <div class="legend">
+                  <div><i class="healthy"></i><span>En bonne santé</span><strong>7</strong></div>
+                  <div><i class="watch"></i><span>À surveiller</span><strong>2</strong></div>
+                  <div><i class="critical"></i><span>Critique</span><strong>1</strong></div>
+                </div>
+              </div>
+              <div class="mini-map" aria-label="Carte schématique des parcelles">
+                <div class="map-grid"></div>
+                <div class="plot-shape plot-a"><span>Nord</span></div>
+                <div class="plot-shape plot-b"><span>Est</span></div>
+                <div class="plot-shape plot-c"><span>Sud</span></div>
+                <div class="map-pin">●</div>
+                <div class="map-label">Exploitation Andria</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel activity-panel">
+            <div class="panel-heading"><div><h2>Activité récente</h2><p>Les dernières mises à jour</p></div><button class="dots">•••</button></div>
+            <div class="timeline">
+              <div class="timeline-item" ng-repeat="event in vm.activities">
+                <div class="timeline-icon {{event.tone}}" ng-bind-html="event.icon"></div>
+                <div><p ng-bind-html="event.text"></p><span>{{event.time}}</span></div>
+              </div>
+            </div>
+            <button class="secondary-button full" ng-click="vm.showToast('Toutes les activités sont affichées')">Voir toute l’activité</button>
+          </section>
+        </div>
+
+        <section class="panel reports-panel">
+          <div class="panel-heading"><div><h2>Signalements récents</h2><p>Suivez l’avancement de vos demandes</p></div><div class="panel-actions"><button class="filter-button" ng-click="vm.reportFilter='all'">Tous</button><button class="text-button" ng-click="vm.setView('reports')">Voir tous <span>→</span></button></div></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>PROBLÈME SIGNALÉ</th><th>PARCELLE</th><th>DATE</th><th>STATUT</th><th>TECHNICIEN</th><th></th></tr></thead>
+              <tbody>
+                <tr ng-repeat="report in vm.reports | filter:vm.search | limitTo:4">
+                  <td><div class="problem"><div class="plant-thumb {{report.imageClass}}">{{report.emoji}}</div><div><strong>{{report.title}}</strong><span>#{{report.id}}</span></div></div></td>
+                  <td><strong class="cell-main">{{report.plot}}</strong><span class="cell-sub">Tomate • {{report.area}}</span></td>
+                  <td><strong class="cell-main">{{report.date}}</strong><span class="cell-sub">{{report.days}}</span></td>
+                  <td><span class="status {{report.statusClass}}"><i></i>{{report.status}}</span></td>
+                  <td><div class="technician"><span class="avatar small">{{report.techInitials}}</span><strong>{{report.technician}}</strong></div></td>
+                  <td><button class="row-arrow" ng-click="vm.selectReport(report)">›</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="bottom-grid">
+          <section class="tip-card">
+            <div class="tip-art"><span>🍃</span><i></i></div>
+            <div><span class="tip-label">CONSEIL DU JOUR</span><h3>Prévenir le mildiou de la tomate</h3><p>Évitez d’arroser le feuillage et aérez régulièrement les plants pour limiter l’humidité.</p><button ng-click="vm.setView('guides')">Lire la fiche pratique <span>→</span></button></div>
+          </section>
+          <section class="panel reminder-card">
+            <div class="reminder-icon">✓</div><div><span>PROCHAIN SUIVI</span><h3>Parcelle Nord</h3><p>Vérifier l’évolution des taches foliaires</p><small>📅 Demain, 08:00</small></div><button ng-click="vm.showToast('Rappel marqué comme terminé')">Marquer fait</button>
+          </section>
+        </div>
+      </section>
+
+      <section class="page simple-view" ng-if="vm.activeView !== 'dashboard'">
+        <div class="page-heading"><div><p class="eyebrow">ESPACE AGRICULTEUR</p><h1>{{vm.currentPage.title}}</h1><p>{{vm.currentPage.subtitle}}</p></div><button class="primary-button" ng-if="vm.activeView === 'reports'" ng-click="vm.openReport()">＋ Nouveau signalement</button></div>
+        <div class="content-cards" ng-if="vm.activeView === 'plots'">
+          <article class="plot-card" ng-repeat="plot in vm.plots"><div class="plot-photo {{plot.tone}}"><span>🍅</span><em>{{plot.health}}</em></div><div class="plot-info"><span>{{plot.code}}</span><h3>{{plot.name}}</h3><p>Tomate • {{plot.area}} • Plantée le {{plot.planted}}</p><div class="plot-meta"><span>Humidité <strong>{{plot.humidity}}</strong></span><span>Dernier suivi <strong>{{plot.lastCheck}}</strong></span></div></div></article>
+        </div>
+        <div class="panel" ng-if="vm.activeView === 'reports'">
+          <div class="panel-heading"><h2>Tous les signalements</h2><div class="tabs"><button ng-repeat="filter in vm.filters" ng-class="{active:vm.reportFilter===filter.id}" ng-click="vm.reportFilter=filter.id">{{filter.label}}</button></div></div>
+          <div class="report-list"><article ng-repeat="report in vm.filteredReports()"><div class="plant-thumb {{report.imageClass}}">{{report.emoji}}</div><div class="report-main"><span>#{{report.id}} • {{report.date}}</span><h3>{{report.title}}</h3><p>{{report.plot}} — {{report.description}}</p></div><span class="status {{report.statusClass}}"><i></i>{{report.status}}</span><button class="row-arrow" ng-click="vm.selectReport(report)">›</button></article></div>
+        </div>
+        <div class="content-cards guides" ng-if="vm.activeView === 'guides'">
+          <article class="guide-card" ng-repeat="guide in vm.guides"><div class="guide-visual {{guide.tone}}"><span>{{guide.emoji}}</span><i>{{guide.category}}</i></div><div><span>{{guide.readTime}} de lecture</span><h3>{{guide.title}}</h3><p>{{guide.description}}</p><button ng-click="vm.showToast('Fiche ouverte : ' + guide.title)">Consulter la fiche →</button></div></article>
+        </div>
+        <div class="panel empty-state" ng-if="vm.activeView === 'messages'"><div class="empty-icon">💬</div><h2>Vos échanges avec le technicien</h2><p>Sélectionnez un signalement pour consulter les demandes de précisions et les conseils reçus.</p><button class="primary-button" ng-click="vm.setView('reports')">Voir mes signalements</button></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" ng-if="vm.reportModal" ng-click="vm.closeModal($event)">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-head"><div><span>NOUVEAU DOSSIER</span><h2 id="modal-title">Signaler un problème</h2></div><button ng-click="vm.reportModal=false" aria-label="Fermer">×</button></div>
+      <form ng-submit="vm.submitReport()">
+        <label>Parcelle concernée<select ng-model="vm.newReport.plot" required><option value="" disabled>Choisir une parcelle</option><option ng-repeat="plot in vm.plots" value="{{plot.name}}">{{plot.name}} — {{plot.area}}</option></select></label>
+        <div class="form-row"><label>Date d’apparition<input type="date" ng-model="vm.newReport.appearanceDate" required></label><label>Étendue des dégâts<select ng-model="vm.newReport.extent" required><option>Quelques plants</option><option>Une zone de la parcelle</option><option>Plus de la moitié</option><option>Toute la parcelle</option></select></label></div>
+        <label>Symptômes observés<textarea ng-model="vm.newReport.symptoms" placeholder="Ex. taches brunes sur les feuilles, flétrissement..." rows="4" required></textarea></label>
+        <label class="upload-zone"><input type="file" multiple accept="image/*" onchange="angular.element(this).scope().vm.filesSelected(this.files)"><span>📷</span><strong>{{vm.fileLabel || 'Ajouter des photos'}}</strong><small>JPG ou PNG • 10 Mo maximum</small></label>
+        <div class="modal-actions"><button type="button" class="secondary-button" ng-click="vm.reportModal=false">Annuler</button><button type="submit" class="primary-button">Envoyer au technicien</button></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" ng-if="vm.selectedReport" ng-click="vm.selectedReport=null">
+    <section class="modal detail-modal" ng-click="$event.stopPropagation()"><div class="modal-head"><div><span>DOSSIER #{{vm.selectedReport.id}}</span><h2>{{vm.selectedReport.title}}</h2></div><button ng-click="vm.selectedReport=null">×</button></div><div class="detail-hero"><div class="plant-thumb large {{vm.selectedReport.imageClass}}">{{vm.selectedReport.emoji}}</div><div><span class="status {{vm.selectedReport.statusClass}}"><i></i>{{vm.selectedReport.status}}</span><p>{{vm.selectedReport.description}}</p></div></div><div class="detail-grid"><div><span>Parcelle</span><strong>{{vm.selectedReport.plot}}</strong></div><div><span>Date du signalement</span><strong>{{vm.selectedReport.date}}</strong></div><div><span>Technicien</span><strong>{{vm.selectedReport.technician}}</strong></div><div><span>Culture</span><strong>Tomate</strong></div></div><div class="advice-box"><span>AVIS DU TECHNICIEN</span><p>{{vm.selectedReport.advice}}</p></div><button class="primary-button full" ng-click="vm.selectedReport=null;vm.activeView='messages'">Ouvrir la conversation</button></section>
+  </div>
+
+  <div class="toast" ng-class="{'show': vm.toast}"><span>✓</span>{{vm.toast}}</div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-sanitize.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
